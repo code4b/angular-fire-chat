@@ -3,7 +3,7 @@
 <mat-toolbar color="primary">
   <button mat-icon-button (click)="toggleSidenav()">
     <!-- <mat-icon matSuffix>menu</mat-icon> -->
-    <img class="img-fluid" src="assets/user.jpg">
+    <img class="img-fluid" src="assets/user-profile.png">
   </button>
   <span>&nbsp;&nbsp;{{ api.currentUser?.name }}</span>
   <!-- <button mat-icon-button (click)="open(list)" class="end">
@@ -33,7 +33,7 @@
         *ngFor="let x of this.users | filterBy: userFilter"
         (click)="selectUser(x)"
       >
-      <img matListAvatar src="assets/user.jpg" alt="assets/user.jpg">
+      <img matListAvatar src="assets/user-profile.png" alt="assets/user.jpg">
         <h3 matLine class="text-primary">{{ x?.name }} <span class="small time">12:01 PM</span></h3>
         <p matLine>
           <span class="small text-muted"> New Message </span><br />
@@ -95,6 +95,7 @@
       </cdk-virtual-scroll-viewport>
 
       <div class="type_msg" *ngIf="showMessages">
+
         <div class="input_msg_write">
           <input
             mat-input
@@ -107,7 +108,7 @@
 
           class="msg_attach_btn"
     
-          (click)="attach()"
+          (click)="userPhoto.click()"
         >
           <mat-icon matSuffix>attach_files</mat-icon>
         </button>
@@ -121,6 +122,15 @@
           </button>
        
         </div>
+        <input type="file"
+        class="hidden_input"
+        id="file"
+        #userPhoto
+        (change)="onFileSelected($event)"
+      accept="image/*" 
+        name="image"
+        autocomplete="off"
+        />
       </div>
     </div>
   </div>

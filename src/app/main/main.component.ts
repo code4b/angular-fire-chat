@@ -175,7 +175,12 @@ export class MainComponent implements OnInit {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
+  async  onFileSelected(event) {
+    var n = Date.now();
+    const file = event.target.files[0];
+   let url = this.api.uploadFile(file)
 
+  }
 
 
 }

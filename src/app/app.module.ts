@@ -33,6 +33,12 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+  StorageBucket
+} from "@angular/fire/storage";
 
 @NgModule({
   declarations: [
@@ -49,6 +55,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ReactiveFormsModule,
     MatToolbarModule,MatIconModule,MatSidenavModule,MatInputModule,MatButtonModule,ScrollingModule,MatSnackBarModule,
     MatListModule, MatDialogModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,AngularFirestoreModule,
     ScrollToModule.forRoot(),

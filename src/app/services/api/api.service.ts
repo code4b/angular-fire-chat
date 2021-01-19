@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from "@angular/fire/storage";
 import { AuthService } from '../auth/auth.service';
-import { map, take,  } from 'rxjs/operators';
+import { map, take, finalize } from 'rxjs/operators';
+
 import { Observable, forkJoin } from 'rxjs';
 
 export interface Chat{
@@ -36,7 +38,7 @@ export interface User{
 })
 export class ApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private storage: AngularFireStorage) { }
 
 
   private temp:any;
@@ -50,7 +52,37 @@ export class ApiService {
   conversationId;
 
 
-
+uploadFile(file ){
+  var n = Date.now();
+  let title = "cloudsSorage";
+  let selectedFile: File = null;
+  let downloadURL: Observable<string>;
+  const filePath = `RoomsImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`RoomsImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe(url => {
+            // if (url) {
+            //   this.fb = url;
+            // }
+            console.log(url);
+            
+          //  return url
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          console.log(url);
+         // return url
+          
+        }
+      });
+}
   createUser(uid, data) {
     return this.afs.doc('users/'+uid).set({
       uid: uid,
